@@ -53,7 +53,6 @@
         <sonar.binaries>target/classes</sonar.binaries>
         <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>
     </properties>
 
 
@@ -134,12 +133,11 @@
                         </executions>
                         <configuration>
                             <append>true</append>
-                            <destFile>${sonar.jacoco.reportPath}</destFile>
                             <!-- Sets the VM argument line used when unit tests are run. -->
                             <propertyName>surefireArgLine</propertyName>
                             <excludes>
-                                <exclude>**/com/mpetrischev/data/jpa/domain/*</exclude>
-                                <exclude>**/db/migration/*</exclude>
+                                <exclude>DetailService/src/main/java/com/mpetrischev/data/jpa/domain/*.java</exclude>
+                                <exclude>DetailService/src/main/java/db/migration/**/*.java</exclude>
                                 <exclude>**/Detailservice.java</exclude>
                             </excludes>
                         </configuration>
