@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ master ]
 
+codecov:
+  token: b00fb0ab-9599-4876-9279-5913fa8dce64
+
 jobs:
   build:
 
