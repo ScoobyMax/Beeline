@@ -53,6 +53,7 @@
         <sonar.binaries>target/classes</sonar.binaries>
         <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.coverage.exclusions>DetailService/src/main/java/com/mpetrischev/data/jpa/domain/*.java,DetailService/src/main/java/db/migration/**/*.java,**/Detailservice.java</sonar.coverage.exclusions>
     </properties>
 
 
