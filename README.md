@@ -24,16 +24,13 @@
 
 для сборки образа(нужен установленный docker и docker-compose) 
 для сборки проекта достаточно выполнить 
-- cd profileservice
-- mvn clean install
-- cd ../detailservice
 - mvn clean install
 
 далее для запуска
-- cd ..
 - docker-compose up
 
-Сервис поиска абонетов по базовой станции будет доступен по адресу http://localhost:80/data/{cell_id}
+Сервис поиска абонетов по базовой станции будет доступен по адресу 
+- http://localhost:80/data/{cell_id}
 
 
 Задание
