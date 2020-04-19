@@ -12,8 +12,7 @@ public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
-    private long id;
+    private int id;
 
     @Column(name = "cell_id")
     @NotBlank

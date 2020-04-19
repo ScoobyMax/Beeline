@@ -1,20 +1,36 @@
+<!--
 ![Java CI with Maven](https://github.com/ScoobyMax/BeeLine/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Build Status](https://travis-ci.com/scoobymax/beeline.svg)](https://travis-ci.com/ScoobyMax/beeline)
-[![docker build](https://img.shields.io/docker/cloud/build/scoobymax/beeline)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/beeline)
-[![codecov](https://codecov.io/gh/ScoobyMax/beeline/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/beeline)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_BeeLine&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_BeeLine)
+-->
+
+# ProfileService
+[![docker build](https://img.shields.io/docker/cloud/build/scoobymax/profileservice)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/profileservice)
+[![codecov](https://codecov.io/gh/ScoobyMax/profileservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/profileservice)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_profileservice&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_profileservice)
+
+
+# DetailService
+[![docker build](https://img.shields.io/docker/cloud/build/scoobymax/detailservice)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/detailservice)
+[![codecov](https://codecov.io/gh/ScoobyMax/detailservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/detailservice)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_detailservice&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_detailservice)
+
+
+# License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 # BeeLine
-Инструкция по сборке:
-для сборки проекта достаточно выполнить 
-mvn -B package --file pom.xml
+Инструкция по сборке и запуску:
 
-для сборки образа(нужен установленный Docker) 
-mvnw com.google.cloud.tools:jib-maven-plugin:dockerBuild -Dimage=scoobymax/beeline
+для сборки образа(нужен установленный docker и docker-compose) 
+для сборки проекта достаточно выполнить 
+cd profileservice
+mvn clean install
+cd ../detailservice
+mvn clean install
 
 далее для запуска
+cd ..
 docker-compose up
 
 Сервис поиска абонетов по базовой станции будет доступен по адресу http://localhost:80/data/{cell_id}

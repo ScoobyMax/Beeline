@@ -5,6 +5,8 @@ import com.mpetrischev.data.jpa.domain.Session;
 import com.mpetrischev.data.jpa.service.AbonentRepository;
 import com.mpetrischev.data.jpa.service.SessionRepository;
 import com.mpetrischev.model.ResponseAbonents;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +25,11 @@ import java.util.concurrent.*;
 @RequestMapping("/data")
 public class DetailServiceController {
 
-    private SessionRepository sessionRepository;
-    private AbonentRepository abonentRepository;
+    private final SessionRepository sessionRepository;
+    private final AbonentRepository abonentRepository;
+    private final static Logger log = LoggerFactory.getLogger(DetailServiceController.class);
     ExecutorService executor = Executors.newFixedThreadPool(10);
+    ExecutorService executor2 = Executors.newFixedThreadPool(10);
     RestTemplate restTemplate = new RestTemplate();
 
     @Value("${url.profileservice}")
@@ -43,7 +47,7 @@ public class DetailServiceController {
         ResponseAbonents responseAbonents = new ResponseAbonents(sessions.size());
         List<Future<Abonent>> list = new ArrayList<>(sessions.size());
         sessions.forEach( session -> {
-            ProfileCallTask job = new ProfileCallTask(session.getCtn());
+            AbonentCallTask job = new AbonentCallTask(session.getCtn());
             Future<Abonent> future = executor.submit(job);
             list.add(future);
         });
@@ -61,19 +65,40 @@ public class DetailServiceController {
     }
 
 
-    private class ProfileCallTask implements Callable<Abonent> {
-        private Abonent abonent;
-        public ProfileCallTask(String ctn) {
+    private class AbonentCallTask implements Callable<Abonent> {
+        private final Abonent abonent;
+        public AbonentCallTask(String ctn) {
             this.abonent = abonentRepository.getByCtn(ctn);
+        }
+        public Abonent call() {
+            ProfileCallTask job = new ProfileCallTask(abonent);
+            Future<Abonent> future = executor2.submit(job);
+            try {
+                return future.get(1, TimeUnit.SECONDS);
+            } catch (InterruptedException | TimeoutException | ExecutionException e) {
+                log.warn("Timeout to get profile for: " + abonent.getCtn());
+            }
+
+            return abonent;
+
+        }
+    }
+
+
+    private class ProfileCallTask implements Callable<Abonent> {
+        private final Abonent abonent;
+        public ProfileCallTask(Abonent abonent) {
+            this.abonent = abonent;
         }
         public Abonent call() {
             Map<String, String> params = new HashMap<>();
             params.put("ctn", abonent.getCtn());
 
             params = restTemplate.getForObject(profileServiceUrl, Map.class, params);
-            assert params != null;
-            abonent.setName(params.get("Email"));
-            abonent.setEmail(params.get("Name"));
+            if (params != null) {
+                abonent.setName(params.get("Email"));
+                abonent.setEmail(params.get("Name"));
+            }
             return abonent;
         }
     }

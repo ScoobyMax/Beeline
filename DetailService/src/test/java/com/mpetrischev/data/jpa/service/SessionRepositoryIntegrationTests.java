@@ -10,10 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Detailservice.class)
@@ -24,7 +21,7 @@ public class SessionRepositoryIntegrationTests {
 
 	@Test
 	public void testFindByCell() {
-		List<Session> sessions = this.repository.findByCell("1234567894");
+		List<Session> sessions = this.repository.findByCell("11111");
 		assertEquals(9,sessions.size());
 	}
 }

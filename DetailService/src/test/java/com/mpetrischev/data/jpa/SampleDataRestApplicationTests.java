@@ -36,9 +36,9 @@ public class SampleDataRestApplicationTests {
 	}
 
 	@Test
-	public void testHome() throws Exception {
-
-		this.mvc.perform(get("/api/data/123")).andExpect(status().isOk())
-				.andExpect(content().string(containsString("hotels")));
+	public void testGetData() throws Exception {
+		this.mvc.perform(get("/data/11111")).andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"total\":9")))
+				.andExpect(content().string(containsString("ctn")));
 	}
 }

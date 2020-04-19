@@ -5,21 +5,24 @@ import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 
-public class V00001__SessionsFromFile extends BaseJavaMigration {
+public class V00002__SessionsFromFile extends BaseJavaMigration {
 
     @Override
     public void migrate(Context context) {
         JdbcTemplate jdbcTemplate =
                 new JdbcTemplate(context.getConnection());
 
+        ClassPathResource resource = new ClassPathResource("sessions.csv");
+        BufferedReader reader = null;
+
         try {
-            Path path = new ClassPathResource("sessions.csv").getFile().toPath();
-            Files.lines(path).forEach(str -> {
+            reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+            reader.lines().forEach(str -> {
                 String[] strArr = str.split(",");
                 if (!strArr[0].equals("cell_id")) {
                     try {
@@ -35,6 +38,12 @@ public class V00001__SessionsFromFile extends BaseJavaMigration {
             });
         } catch (IOException ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (NullPointerException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -14,7 +14,6 @@ public class Abonent implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
     private UUID id;
 
     @Column(name = "ctn")
