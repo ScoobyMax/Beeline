@@ -12,16 +12,19 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: beelineDB
 
-  adminer:
-    image: adminer
-    restart: always
+  profileservice:
+    image: scoobymax/profileservice:1.0-SNAPSHOT
+    hostname: profileservice
+    container_name: profileservice
+    expose:
+      - "8080"
     ports:
-      - 8080:8080
+      - "8081:8080"
 
-  beeline:
-    image: scoobymax/beeline
-    hostname: beeline
-    container_name: beeline
+  detailservice:
+    image: scoobymax/detailservice:1.0-SNAPSHOT
+    hostname: detailservice
+    container_name: detailservice
     links:
       - postgres
     expose:
@@ -30,3 +33,10 @@ services:
       - "80:8080"
     depends_on:
       - postgres
+      - profileservice
+
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - 8080:8080
