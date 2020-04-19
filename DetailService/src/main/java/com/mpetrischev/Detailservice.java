@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 public class Detailservice {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Detailservice.class, args);
+		SpringApplication.run(Detailservice.class);
 	}
 
 }

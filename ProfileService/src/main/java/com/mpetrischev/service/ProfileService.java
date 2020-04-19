@@ -16,7 +16,7 @@ import java.util.Map;
 public class ProfileService {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProfileService.class, args);
+		SpringApplication.run(ProfileService.class);
 	}
 
 	@GetMapping(value = {"/{ctn}"})
