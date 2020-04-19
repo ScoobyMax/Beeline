@@ -30,12 +30,12 @@ public class Session implements Serializable {
         this.id = id;
     }
 
-    public String getCell_id() {
+    public String getCell() {
         return cell;
     }
 
-    public void setCell_id(String cell_id) {
-        this.cell = cell_id;
+    public void setCell(String cell) {
+        this.cell = cell;
     }
 
     public String getCtn() {

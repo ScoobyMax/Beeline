@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AbonentRepository extends CrudRepository<Abonent, String> {
     Abonent getByCtn(String ctn);
-
-//    String getIdByCtn(String ctn);
 }

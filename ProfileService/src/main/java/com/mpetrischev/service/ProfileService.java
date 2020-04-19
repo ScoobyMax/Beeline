@@ -4,10 +4,7 @@ import com.mpetrischev.model.ProfileInfo;
 import com.mpetrischev.model.ProfileResponce;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -22,7 +19,7 @@ public class ProfileService {
 		SpringApplication.run(ProfileService.class, args);
 	}
 
-	@RequestMapping(value = {"/{ctn}"}, method = RequestMethod.GET)
+	@GetMapping(value = {"/{ctn}"})
 	public Map<String, String> getProfile(@PathVariable("ctn") String ctn) {
 		Map<String, String> params = new HashMap<>();
 		params.put("ctn", ctn);

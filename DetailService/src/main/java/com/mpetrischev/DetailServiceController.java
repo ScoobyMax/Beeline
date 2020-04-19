@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ public class DetailServiceController {
 
     private final SessionRepository sessionRepository;
     private final AbonentRepository abonentRepository;
-    private final static Logger log = LoggerFactory.getLogger(DetailServiceController.class);
+    private static final Logger log = LoggerFactory.getLogger(DetailServiceController.class);
     ExecutorService executor = Executors.newFixedThreadPool(10);
     ExecutorService executor2 = Executors.newFixedThreadPool(10);
     RestTemplate restTemplate = new RestTemplate();
@@ -41,7 +38,7 @@ public class DetailServiceController {
         this.abonentRepository = abonentRepository;
     }
 
-    @RequestMapping(value = {"/{cellid}"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/{cellid}"})
     public ResponseAbonents getAbonents(@PathVariable("cellid") String cellid) {
         List<Session> sessions = sessionRepository.findByCell(cellid);
         ResponseAbonents responseAbonents = new ResponseAbonents(sessions.size());
@@ -76,7 +73,7 @@ public class DetailServiceController {
             try {
                 return future.get(1, TimeUnit.SECONDS);
             } catch (InterruptedException | TimeoutException | ExecutionException e) {
-                log.warn("Timeout to get profile for: " + abonent.getCtn());
+                log.warn(String.format("Timeout to get profile for: %s", abonent.getCtn()));
             }
 
             return abonent;
