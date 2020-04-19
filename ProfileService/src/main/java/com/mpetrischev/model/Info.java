@@ -37,4 +37,14 @@ public class Info {
     public void setVersion(String version) {
         this.version = version;
     }
+
+    @Override
+    public String toString() {
+        return "Info{" +
+                "seed='" + getSeed() + '\'' +
+                ", results=" + getResults() +
+                ", page=" + getPage() +
+                ", version='" + getVersion() + '\'' +
+                '}';
+    }
 }

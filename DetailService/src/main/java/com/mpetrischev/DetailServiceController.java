@@ -9,7 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -27,15 +30,20 @@ public class DetailServiceController {
     private static final Logger log = LoggerFactory.getLogger(DetailServiceController.class);
     ExecutorService executor = Executors.newFixedThreadPool(10);
     ExecutorService executor2 = Executors.newFixedThreadPool(10);
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate;
 
     @Value("${url.profileservice}")
     private String profileServiceUrl;
 
     @Autowired
-    public DetailServiceController(SessionRepository sessionRepository, AbonentRepository abonentRepository) {
+    public DetailServiceController(SessionRepository sessionRepository, AbonentRepository abonentRepository, RestTemplate restTemplate) {
         this.sessionRepository = sessionRepository;
         this.abonentRepository = abonentRepository;
+        if (restTemplate == null) {
+            this.restTemplate = new RestTemplate();
+        } else {
+            this.restTemplate = restTemplate;
+        }
     }
 
     @GetMapping(value = {"/{cellid}"})
