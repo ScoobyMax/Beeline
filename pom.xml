@@ -137,6 +137,11 @@
                             <destFile>${sonar.jacoco.reportPath}</destFile>
                             <!-- Sets the VM argument line used when unit tests are run. -->
                             <propertyName>surefireArgLine</propertyName>
+                            <excludes>
+                                <exclude>**/com/mpetrischev/data/jpa/domain/*</exclude>
+                                <exclude>**/db/migration/*</exclude>
+                                <exclude>**/Detailservice.java</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
