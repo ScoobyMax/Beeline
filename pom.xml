@@ -37,6 +37,11 @@
         <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
         <!-- Useful for Heroku Deployment -->
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
+
+        <sonar.projectKey>ScoobyMax_Beeline</sonar.projectKey>
+        <sonar.organization>scoobymax</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>633f74ebed9c78380577e33e7c04719022f1e8e5</sonar.login>
     </properties>
 
 
