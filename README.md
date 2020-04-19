@@ -3,16 +3,17 @@
 [![Build Status](https://travis-ci.com/scoobymax/beeline.svg)](https://travis-ci.com/ScoobyMax/beeline)
 -->
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_Beeline&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_Beeline)
+[![codecov](https://codecov.io/gh/ScoobyMax/BeeLine/branch/master/graph/badge.svg?token=LhP8QAEkm3)](https://codecov.io/gh/ScoobyMax/BeeLine)
 
 # ProfileService
 [![docker build](https://img.shields.io/docker/cloud/build/scoobymax/profileservice)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/profileservice)
-[![codecov](https://codecov.io/gh/ScoobyMax/profileservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/profileservice)
-
+<!--[![codecov](https://codecov.io/gh/ScoobyMax/profileservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/profileservice)
+-->
 
 # DetailService
 [![docker build](https://img.shields.io/docker/cloud/build/scoobymax/detailservice)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/detailservice)
-[![codecov](https://codecov.io/gh/ScoobyMax/detailservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/detailservice)
-
+<!--[![codecov](https://codecov.io/gh/ScoobyMax/detailservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/detailservice)
+-->
 
 
 # License
