@@ -20,7 +20,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-  #We avoid this error :" the job exceeded the maximum log length and has been terminated "
+    - name: Sonar verify
+      run: mvn verify sonar:sonar
     - name: Build with Maven
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
