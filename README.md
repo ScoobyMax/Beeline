@@ -2,17 +2,17 @@
 ![Java CI with Maven](https://github.com/ScoobyMax/BeeLine/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Build Status](https://travis-ci.com/scoobymax/beeline.svg)](https://travis-ci.com/ScoobyMax/beeline)
 -->
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_Beeline&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_Beeline)
 
 # ProfileService
 [![docker build](https://img.shields.io/docker/cloud/build/scoobymax/profileservice)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/profileservice)
 [![codecov](https://codecov.io/gh/ScoobyMax/profileservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/profileservice)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_profileservice&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_profileservice)
 
 
 # DetailService
 [![docker build](https://img.shields.io/docker/cloud/build/scoobymax/detailservice)](https://cloud.docker.com/u/ScoobyMax/repository/docker/scoobymax/detailservice)
 [![codecov](https://codecov.io/gh/ScoobyMax/detailservice/branch/master/graph/badge.svg)](https://codecov.io/gh/ScoobyMax/detailservice)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScoobyMax_detailservice&metric=alert_status)](https://sonarcloud.io/dashboard?id=ScoobyMax_detailservice)
+
 
 
 # License
