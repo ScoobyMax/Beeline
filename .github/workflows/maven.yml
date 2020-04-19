@@ -21,7 +21,8 @@ jobs:
       with:
         java-version: 1.8
   #We avoid this error :" the job exceeded the maximum log length and has been terminated "
-    - name: prepare
-      run: echo -e '<?xml version="1.0" encoding="UTF-8"?> <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> <mirrors> <mirror> <id>mvnsearch-unavailable</id> <name>mvnsearch-unavailable</name> <mirrorOf>mvnsearch</mirrorOf> <url>http://repo1.maven.org/maven2</url> </mirror> </mirrors> <profiles> <profile> <id>no-mvnsearch</id> <repositories> <repository> <id>mvnsearch</id> <url>http://www.mvnsearch.org/maven2</url> <releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> </snapshots> </repository> </repositories> </profile> </profiles> <servers> <server> <id>docker.io</id> <username>${DOCKER_USERNAME}</username> <password>${DOCKER_PASSWORD}</password> </server> </servers> <activeProfiles> <activeProfile>no-mvnsearch</activeProfile> </activeProfiles> </settings>' > $HOME/.m2/settings.xml
     - name: Build with Maven
-      run: mvn -B clean install
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: mvn -B clean install -s ./settings.xml
