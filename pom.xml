@@ -39,6 +39,13 @@
     </dependencies>
 
     <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- property useful for spotify's dockerfile-maven-plugin -->
+        <docker.image.prefix>scoobymax</docker.image.prefix>
+
         <!-- Sonar -->
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -54,6 +61,16 @@
         <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.coverage.exclusions>DetailService/src/main/java/com/mpetrischev/data/jpa/domain/*.java,DetailService/src/main/java/db/migration/**/*.java,**/Detailservice.java</sonar.coverage.exclusions>
+
+        <!--Not adding artifacts to remote repository-->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <!-- GitHub OAuth token & server -->
+        <github.global.server>github</github.global.server>
+        <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
+        <!-- Useful for Heroku Deployment -->
+        <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
+
+        <docker.skip>true</docker.skip>
     </properties>
 
 
@@ -141,6 +158,37 @@
                                 <exclude>DetailService/src/main/java/db/migration/**/*.java</exclude>
                                 <exclude>**/Detailservice.java</exclude>
                             </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <!-- spotify's dockerfile-maven-plugin -->
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <version>1.4.13</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>push</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <skip>${docker.skip}</skip>
+                            <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                            <skipDockerInfo>true</skipDockerInfo>
+                            <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                            <tag>${project.version}</tag>
                         </configuration>
                     </plugin>
                 </plugins>

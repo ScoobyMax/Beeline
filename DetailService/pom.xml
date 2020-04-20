@@ -14,21 +14,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>1.8</java.version>
-        <!-- solving error : Invalid or corrupt jarfile /app.jar -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!--		<main.basedir>${basedir}/../..</main.basedir>-->
-        <!-- property useful for  spotify's dockerfile-maven-plugin -->
-        <!-- Instead of "fanjups", please add your Docker Hub username -->
-        <docker.image.prefix>scoobymax</docker.image.prefix>
-        <!--Not adding artifacts to remote repository-->
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <!-- GitHub OAuth token & server -->
-        <github.global.server>github</github.global.server>
-        <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
-        <!-- Useful for Heroku Deployment -->
-        <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
+        <docker.skip>false</docker.skip>
     </properties>
 
 
@@ -67,30 +53,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- spotify's dockerfile-maven-plugin -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.13</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>push</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                    <skipDockerInfo>true</skipDockerInfo>
-                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
-                    <tag>${project.version}</tag>
-                </configuration>
-            </plugin>
-
 
             <!-- maven-dependency-plugin useful for creating docker image -->
             <plugin>
