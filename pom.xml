@@ -166,6 +166,9 @@
 
         <profile>
             <id>docker</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <!-- spotify's dockerfile-maven-plugin -->
@@ -179,7 +182,6 @@
                                 <phase>install</phase>
                                 <goals>
                                     <goal>build</goal>
-                                    <goal>push</goal>
                                 </goals>
                             </execution>
                         </executions>
