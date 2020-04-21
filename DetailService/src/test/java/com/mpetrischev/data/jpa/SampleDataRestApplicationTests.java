@@ -1,8 +1,8 @@
 package com.mpetrischev.data.jpa;
 
-import com.mpetrischev.DetailServiceController;
-import com.mpetrischev.Detailservice;
-import com.mpetrischev.RestTemplateCustom;
+import com.mpetrischev.DetailServiceApplication;
+import com.mpetrischev.controller.impl.DetailServiceControllerImpl;
+import com.mpetrischev.dto.Profile;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,11 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.*;
@@ -30,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Detailservice.class)
+@SpringBootTest(classes = DetailServiceApplication.class)
 @WebAppConfiguration
 @ActiveProfiles("scratch")
 // Separate profile for web tests to avoid clashing databases
@@ -40,23 +39,21 @@ public class SampleDataRestApplicationTests {
 	private WebApplicationContext context;
 
 	@Mock
-	private RestTemplateCustom restTemplateCustom;
+	private RestTemplate restTemplate;
 
 	@InjectMocks
 	@Resource
-	private DetailServiceController detailServiceController;
+	private DetailServiceControllerImpl detailServiceController;
 
 	private MockMvc mvc;
 
 	@Before
-	public void setUp() throws Exception {
-		// Initialize mocks created above
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		// Change behaviour of `resource`
-		Map<String, String> result = new HashMap<>();
-		result.put("Name", "someName");
-		result.put("Email", "someEmail");
-		when(restTemplateCustom.getForObject(anyString(), eq(Map.class), anyMap())).thenReturn(result);
+		Profile profile = new Profile("");
+		profile.setName("someName");
+		profile.setEmail("someEmail");
+		when(restTemplate.getForObject(anyString(), eq(Profile.class), anyMap())).thenReturn(profile);
 
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 	}
@@ -65,6 +62,6 @@ public class SampleDataRestApplicationTests {
 	public void testGetData() throws Exception {
 		this.mvc.perform(get("/data/11111")).andExpect(status().isOk())
 				.andExpect(content().string(containsString("\"total\":9")))
-				.andExpect(content().string(containsString("ctn")));
+				.andExpect(content().string(containsString("1234567893")));
 	}
 }
